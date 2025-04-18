@@ -3,29 +3,39 @@ package servlet;
 import java.io.IOException;
 
 import Util.Util;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.CoffeeOrder;
 
+@WebServlet("/coffeeOrder")
 public class CoffeeOrderServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//1.設定編碼
+		//設定編碼
 		resp.setCharacterEncoding("UTF-8");//告訴servlet所有字段都會用UTF8
 		resp.setContentType("text/html;charset=UTF-8");//告訴瀏覽器
-		
+		//取得參數
 		String type = req.getParameter("type");
 		String size = req.getParameter("size");
-		String suger = req.getParameter("suger");
+		String sugar = req.getParameter("sugar");
 		
-		//3.驗證參數
-		if(!(Util.isNumber(type)&&(Util.isNumber(size)&&(Util.isNumber(suger))))) {
-			resp.getWriter().print("輸入錯誤");
+		//判斷參數
+		if(type ==null || size == null || sugar ==null) {
+			resp.getWriter().print("參數輸入不正確");
 			return;
 		}
-		
+		//進行商業邏輯
+		CoffeeOrder coffeeOrder =new CoffeeOrder(type, size, sugar);
+		//resp.getWriter().print(coffeeOrder.getInfo());
+		//建立分派器
+		RequestDispatcher rd = req.getRequestDispatcher("coffee_order.jsp");
+		req.setAttribute("CoffeeOrder", coffeeOrder);
+		rd.forward(req, resp);
 	}				
 }
 	
