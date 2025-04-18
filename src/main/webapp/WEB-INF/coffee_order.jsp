@@ -10,7 +10,7 @@
 		<div>
 			<fieldset>
 				<legend>Coffee Order</legend>
-				咖啡: ${ CoffeeOrder.type } <br/>
+				咖啡: ${ CoffeeOrder.type } <br/> 
 				容量: ${ CoffeeOrder.size } <br/>
 				含糖: ${ CoffeeOrder.sugar } <br/>
 				${ CoffeeOrder.info } <br/>
