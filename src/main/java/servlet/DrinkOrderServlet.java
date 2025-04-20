@@ -32,7 +32,7 @@ public class DrinkOrderServlet extends HttpServlet {
 		DrinkOrder drinkorder = new DrinkOrder(type, size, ice);
 		// resp.getWriter().print(coffeeOrder.getInfo());
 		// 建立分派器
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/drink_order.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/drink_order.jsp"); // 告訴servlet jsp頁面在哪裡
 		req.setAttribute("DrinkOrder", drinkorder);
 		rd.forward(req, resp);
 
