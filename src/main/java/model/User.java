@@ -71,9 +71,5 @@ public class User {
 	public String toString() {
 		return "User [userName=" + userName + ", gender=" + gender + ", age=" + age + ", height=" + height + ", weight="
 				+ weight + ", bmiValue=" + bmiValue + "]";
-	}
-	
-	
-	
-	
+	}	
 }
