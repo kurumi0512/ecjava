@@ -17,9 +17,9 @@ public class PhonePlan {
 
 	// 建立一個內部類來代表一種手機類型的判斷規則,phonerule是屬於手機才可以使用
 	static class PlanRule {
-		// 類型名稱
+		// 方案名稱
 		private String type;
-		// 描述
+		// 方案價格
 		private Integer price;
 		// 條件的判斷邏輯
 		private BiPredicate<Integer, Integer> condition;
@@ -30,7 +30,7 @@ public class PhonePlan {
 			this.condition = condition;
 		}
 
-		// 符合比對
+		// 符合比對 看會是哪種方案
 		public boolean matches(Integer min, Integer gb) {
 			return condition.test(min, gb); // BiPredicate的test方法
 		}
@@ -52,7 +52,7 @@ public class PhonePlan {
 		rules.add(new PlanRule("長輩節省型", 200, (min, gb) -> gb < 1 && min < 20));
 	}
 
-	// Phone 建構子
+	// PhonePlan 建構子
 	public PhonePlan(Integer min, Integer gb) {
 		this.min = min;
 		this.gb = gb;
@@ -63,12 +63,12 @@ public class PhonePlan {
 		this(Integer.parseInt(min), Integer.parseInt(gb));
 	}
 
-	// 判斷咖啡類型
+	// 判斷phone類型
 	public String getPhoneType() {
 		return rules.stream().filter(rule -> rule.matches(min, gb)) // 找出符合條件的規則
-				.findFirst() // 取得第一筆匹配的
+				.findFirst() // 取得第一筆匹配的 // 找出第一筆符合的 rule（回傳 Optional<PlanRule>）
 				// .map(PlanRule::getResult)
-				.map(rule -> rule.getResult()) // 轉換成字串
+				.map(rule -> rule.getResult()) // 轉換成字串// 把 Optional<PlanRule> 轉成 Optional<String>
 				.orElse("無適合方案");
 	}
 
@@ -79,10 +79,6 @@ public class PhonePlan {
 
 	public Integer getGb() {
 		return gb;
-	}
-
-	public static void main(String[] args) {
-		rules.add(new PlanRule("商務型", 1499, (min, gb) -> min > 1000 || gb > 50));
 	}
 
 }
