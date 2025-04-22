@@ -52,7 +52,7 @@
 					</tbody>
 					<tfoot>
 						<tr style="background-color: #DDDDDD">
-							<td colspan="3" style="text-align: right;">總金額</td>
+							<td colspan="5" style="text-align: right;">總金額</td>
 							<td>
 								<fmt:formatNumber value="${ totalPriceSum }" type="currency" maxFractionDigits="0" />
 							</td>
