@@ -9,7 +9,7 @@ public class Guestbook {
 
 	public Guestbook(String message) {
 		this.message = message;
-		this.date = new Date();
+		this.date = new Date(); // Date是java內建的
 	}
 
 	public String getMessage() {
