@@ -4,8 +4,8 @@ public class IceOrder {
 	private MainDish mainDish; // 主餐
 	private Topping topping; // 配料
 	private int totalPrice; // 總價
-	// 看不懂
 
+	// 原先mainDishName是String要把他轉成MainDish的物件
 	public IceOrder(String mainDishName, String[] toppingArray) {
 		this(new MainDish(mainDishName), new Topping(toppingArray));
 	}
