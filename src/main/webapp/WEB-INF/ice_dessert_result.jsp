@@ -2,51 +2,57 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-   
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>    
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>大家的心情留言板</title>
+		<title>🍧冰果店的點餐系統-訂單結果</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+		
 	</head>
 	<body style="padding: 20px">
 		<div class="pure-form">
-			<h2>訪客留言資料結果</h2>
+			<h2>🍧冰果店的點餐系統-訂單結果</h2>
 			<fieldset>
-				<legend>Message Result</legend>
-				本次留言 ${ message }<p />
-				歷史留言 ${ guestbooks } <p />
-				<ol>
-					<c:forEach var="gb" items="${ guestbooks }">
-						<li>${ gb.message } ${ gb.date }</li>
-					</c:forEach>
-				</ol>
-				<p />
-				目前留言筆數: ${fn:length(guestbooks)}
+				<legend>訂單列表</legend>
+				<c:set var="totalPriceSum" value="0" />
 				<table class="pure-table pure-table-bordered">
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>留言內容</th>
-							<th>留言時間</th>
+							<th>主餐</th>
+							<th>配料</th>
+							<th>價格</th>
+							<th>刪除</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach varStatus="i" var="gb" items="${ guestbooks }"> 
+						<c:forEach varStatus="i" var="iceOrder" items="${ iceOrders }">
 							<tr>
 								<td>${ i.index + 1 }</td>
-								<td>${ gb.message }</td>
+								<td>${ iceOrder.mainDish.name }</td>
+								<td>${ iceOrder.topping.toppings }</td>
 								<td>
-									<!-- 格式化日期 hh是12小時制 只有一個h是24小時,E是星期幾 -->
-									<fmt:formatDate value="${gb.date }" pattern="yyyy-MM-dd a hh:mm:ss E"/>
+									<fmt:formatNumber value="${ iceOrder.totalPrice }" type="currency" maxFractionDigits="0" />
 								</td>
+								<td title="按我一下刪除" style="cursor: pointer;">❌</td>
 							</tr>
-						</c:forEach>	
+							<!-- 累加總價 -->
+							<c:set var="totalPriceSum" value="${ totalPriceSum + iceOrder.totalPrice }" />
+						</c:forEach>
 					</tbody>
+					<tfoot>
+						<tr style="background-color: #DDDDDD">
+							<td colspan="3" style="text-align: right;">總金額</td>
+							<td>
+								<fmt:formatNumber value="${ totalPriceSum }" type="currency" maxFractionDigits="0" />
+							</td>
+						</tr>
+					</tfoot>
 				</table>
-				<a href="/JavaWeb/guestbook" class="pure-button pure-button-primary">返回</a>
+				
+				<a href="/JavaWeb/ice" class="pure-button pure-button-primary">返回</a>
 			</fieldset>
 		</div>
 	</body>
